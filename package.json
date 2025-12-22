@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "ChancesAre-API",
   "private": true,
   "scripts": {
     "build": "turbo run build",

@@ -1,74 +1,72 @@
 # ChancesAre API 🌍🦈⚡☄️
 
-ChancesAre is a playful API (and UI) that calculates your chances of experiencing some extremely unlikely events — like being attacked by a shark, struck by lightning, or hit by a meteor — in any city in the world.
+ChancesAre is a playful API that calculates your chances of experiencing some extremely unlikely events like being attacked by a shark, struck by lightning, or hit by a meteor in any city in the world.
 
 Spoiler: you’re probably fine. Relax.
 
-## 😌 What It Does
+## What It Does
 Given a user’s age and city, the API calculates probabilities for:
 
-🦈 Shark attacks
-⚡ Lightning strikes
+🦈 Shark attacks </br>
+⚡ Lightning strikes </br>
 ☄️ Meteor impacts
 
 Each result comes with:
 - A probability (formatted in a human-friendly way)
 - A short verdict to keep things light
 
-## 🧠 How the Calculations Work (Simplified)
+## How the Calculations Work (Simplified)
 ⚠️ Note: These calculations are intentionally approximate and not scientifically precise. Improving accuracy is a planned next step.
 
 ### 🦈 Shark Attack
-Base rate: 1 in 11,500,000 per year
-Adjusted by:
-Distance to the coast
-Age
+Base rate: 1 in 11,500,000 per year </br>
+Adjusted by: Distance to the coast & Age 
 
-sharkProbability =
-  BASE_SHARK_ANNUAL * age * sharkModifier(distanceToCoastKm)
+```js
+sharkProbability = BASE_SHARK_ANNUAL * age * sharkModifier(distanceToCoastKm)
+```
 
 ### ⚡ Lightning Strike
 Base rate: 1 in 1,200,000 per year
-Adjusted by:
-City’s average thunderstorms
-Age
+Adjusted by: City’s average thunderstorms & Age
 
-lightningProbability =
-  BASE_LIGHTNING_ANNUAL *
-  age *
-  (cityAvgThunderstorms / globalAvgThunderstorms)
+```js
+lightningProbability = BASE_LIGHTNING_ANNUAL * age * (cityAvgThunderstorms / globalAvgThunderstorms)
+```
 
 ### ☄️ Meteor Impact
 Base rate: 1 in 174,000,000 (lifetime)
-Adjusted by:
-Age
-City population
-meteorProbability =
-  (BASE_METEOR_LIFETIME / 80 * age) *
-  (1 + log10(cityPopulation / 1_000_000) * 0.1)
+Adjusted by: Age & City population
+
+```js
+meteorProbability = (BASE_METEOR_LIFETIME / 80 * age) * (1 + log10(cityPopulation / 1_000_000) * 0.1)
+```
 
 ## 🚀 How to Use the API
 Base URL
-https://your-api-domain
+`http://localhost:8080`
 
 Required Query Parameters
+```
 age — positive number
 city — any city name (e.g. Barcelona)
+```
 
-Endpoints
-Get all probabilities
-GET /probability/weird?age=27&city=Barcelona
+**Endpoints** </br>
+- Get all probabilities </br>
+`GET /probability/weird?age=27&city=Barcelona`
 
-Get only shark attack probability
-GET /probability/shark?age=27&city=Barcelona
+- Get only shark attack probability </br>
+`GET /probability/shark?age=27&city=Barcelona`
 
-Get only lightning strike probability
-GET /probability/lightning?age=27&city=Barcelona
+- Get only lightning strike probability </br>
+`GET /probability/lightning?age=27&city=Barcelona`
 
-Get only meteor impact probability
-GET /probability/meteor?age=27&city=Barcelona
+- Get only meteor impact probability </br>
+`GET /probability/meteor?age=27&city=Barcelona`
 
 📦 Example Response
+```js
 {
   "inputs": {
     "age": 27,
@@ -89,29 +87,32 @@ GET /probability/meteor?age=27&city=Barcelona
     }
   }
 }
+```
 
 ❌ Error Handling
+```
 Missing age or city → 400 Bad Request
 Invalid age (non-number or ≤ 0) → 400 Bad Request
+```
 
 ## 🛠 Tech Stack
 Turborepo
 
-Frontend
-Vite
-TypeScript
-Tailwind CSS
+**Frontend** </br>
+Vite </br>
+TypeScript </br>
+Tailwind CSS </br>
 
-Backend
-Node.js
-Express.js
-TypeScript
+**Backend** </br>
+Node.js </br>
+Express.js </br>
+TypeScript </br>
 
 ## Data Sources & APIs
-OpenCage Geocoding API
-OpenWeatherMap API
-GeoNames Population API
-Natural Earth Coastline Data
+- OpenCage Geocoding API
+- OpenWeatherMap API
+- GeoNames Population API
+- Natural Earth Coastline Data
 
 ## Next Steps
 Improve accuracy of probability calculations
@@ -121,4 +122,4 @@ Add caching and rate limiting
 
 ## ⚠️ Disclaimer
 This project is for educational and entertainment purposes only.
-Please do not make life decisions based on meteor statistics.
+Please do not make life decisions based on these statistics.
